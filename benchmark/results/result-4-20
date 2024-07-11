@@ -1,0 +1,41 @@
+warning: variable does not need to be mutable
+   --> consensus/src/core.rs:605:17
+    |
+605 |             let mut sync_to_sender;
+    |                 ----^^^^^^^^^^^^^^
+    |                 |
+    |                 help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` on by default
+
+warning: unused variable: `common_parent`
+   --> consensus/src/core.rs:444:13
+    |
+444 |         let common_parent = alt_chain[left].digest();
+    |             ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_common_parent`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: value assigned to `blocks` is never read
+  --> consensus/src/synchronizer.rs:94:41
+   |
+94 | ...                   let mut blocks = 0;
+   |                               ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+   = note: `#[warn(unused_assignments)]` on by default
+
+Num twins 2
+[92mStarting local benchmark[0m
+Setting up testbed...
+Waiting for the nodes to synchronize...
+Running benchmark (20 sec)...
+Parsing logs...
+
+[1m[91mERROR[0m: Failed to run benchmark
+
+Caused by: 
+  0: <class 'benchmark.logs.ParseError'>
+  1: Node(s) panicked
+
+

@@ -1,0 +1,370 @@
+warning: unused imports: `thread`, `time`
+  --> network/src/reliable_sender.rs:19:11
+   |
+19 | use std::{thread, time};
+   |           ^^^^^^  ^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `rand::Rng`
+  --> network/src/reliable_sender.rs:20:5
+   |
+20 | use rand::Rng;
+   |     ^^^^^^^^^
+
+warning: unused imports: `thread`, `time`
+  --> network/src/simple_sender.rs:15:11
+   |
+15 | use std::{thread, time};
+   |           ^^^^^^  ^^^^
+
+warning: unused import: `rand::Rng`
+  --> network/src/simple_sender.rs:16:5
+   |
+16 | use rand::Rng;
+   |     ^^^^^^^^^
+
+warning: unused import: `rand::Rng`
+  --> network/src/delayed_sender.rs:15:5
+   |
+15 | use rand::Rng;
+   |     ^^^^^^^^^
+
+warning: unused imports: `thread`, `time`
+  --> network/src/delayed_sender.rs:16:11
+   |
+16 | use std::{thread, time};
+   |           ^^^^^^  ^^^^
+
+warning: unused variable: `current_round`
+  --> network/src/reliable_sender.rs:94:9
+   |
+94 |         current_round: u64,
+   |         ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_current_round`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `current_round`
+  --> network/src/delayed_sender.rs:64:68
+   |
+64 |     pub async fn send(&mut self, address: SocketAddr, data: Bytes, current_round: u64) {
+   |                                                                    ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_current_round`
+
+warning: unused import: `log::debug`
+ --> consensus/src/aggregator.rs:8:5
+  |
+8 | use log::debug;
+  |     ^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `crate::new_helper::NewHelper`
+ --> consensus/src/consensus.rs:5:5
+  |
+5 | use crate::new_helper::NewHelper;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `FirstBlocks`
+ --> consensus/src/new_helper.rs:3:38
+  |
+3 | use crate::messages::{Block, Blocks, FirstBlocks, QC};
+  |                                      ^^^^^^^^^^^
+
+warning: value assigned to `senders_clique` is never read
+   --> consensus/src/core.rs:742:17
+    |
+742 |         let mut senders_clique = Vec::new();
+    |                 ^^^^^^^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+    = note: `#[warn(unused_assignments)]` on by default
+
+warning: variable does not need to be mutable
+   --> consensus/src/core.rs:744:17
+    |
+744 |             let mut received_clique = REQUEST_CLIQUES.lock().unwrap();
+    |                 ----^^^^^^^^^^^^^^^
+    |                 |
+    |                 help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` on by default
+
+warning: variable does not need to be mutable
+   --> consensus/src/core.rs:753:13
+    |
+753 |         let mut parties_to_keep;
+    |             ----^^^^^^^^^^^^^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> consensus/src/core.rs:765:17
+    |
+765 | ...   let mut my_keys: Vec<_> = parties_to_keep.clone().into_iter().map(|x| self.committee.authorities.iter().find_map(|(key, &ref val)| if val.address == *x { Some(key) } else { No...
+    |           ----^^^^^^^
+    |           |
+    |           help: remove this `mut`
+
+warning: value assigned to `blocks` is never read
+   --> consensus/src/core.rs:884:17
+    |
+884 |         let mut blocks = 0;
+    |                 ^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: variable does not need to be mutable
+   --> consensus/src/core.rs:924:17
+    |
+924 |             let mut sync_to_sender;
+    |                 ----^^^^^^^^^^^^^^
+    |                 |
+    |                 help: remove this `mut`
+
+warning: value assigned to `block` is never read
+   --> consensus/src/core.rs:985:17
+    |
+985 |         let mut block = Block::default();
+    |                 ^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: variable `in_requests` is assigned to, but never used
+   --> consensus/src/core.rs:989:13
+    |
+989 |         let in_requests;
+    |             ^^^^^^^^^^^
+    |
+    = note: consider using `_in_requests` instead
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: value assigned to `in_requests` is never read
+   --> consensus/src/core.rs:993:13
+    |
+993 |             in_requests = my_requests.contains_key(&origin.clone());
+    |             ^^^^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: unused variable: `block_request`
+   --> consensus/src/core.rs:998:13
+    |
+998 |         let block_request: Block = bincode::deserialize(&block_ask).expect("Failed to deserialize our own block");
+    |             ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_block_request`
+
+warning: value assigned to `block_in_previous_chain` is never read
+    --> consensus/src/core.rs:1026:25
+     |
+1026 |                 let mut block_in_previous_chain = false;
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+
+warning: value assigned to `block` is never read
+    --> consensus/src/core.rs:1051:21
+     |
+1051 |                     block = vec_blocks[vec_blocks.len()-1].clone();
+     |                     ^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+
+warning: variable does not need to be mutable
+    --> consensus/src/core.rs:1056:21
+     |
+1056 |                 let mut last_block;
+     |                     ----^^^^^^^^^^
+     |                     |
+     |                     help: remove this `mut`
+
+warning: value assigned to `sent_sync` is never read
+    --> consensus/src/core.rs:1169:17
+     |
+1169 |         let mut sent_sync = Vec::new(); 
+     |                 ^^^^^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+
+warning: variable does not need to be mutable
+    --> consensus/src/core.rs:1171:17
+     |
+1171 |             let mut my_requests = SENT_SYNCS.lock().unwrap(); 
+     |                 ----^^^^^^^^^^^
+     |                 |
+     |                 help: remove this `mut`
+
+warning: value assigned to `block` is never read
+  --> consensus/src/new_helper.rs:48:17
+   |
+48 |         let mut block = Block::default();
+   |                 ^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+
+warning: variable does not need to be mutable
+  --> consensus/src/new_helper.rs:82:25
+   |
+82 |                     let mut last_block;
+   |                         ----^^^^^^^^^^
+   |                         |
+   |                         help: remove this `mut`
+
+warning: unused variable: `counter`
+  --> consensus/src/config.rs:97:17
+   |
+97 |         let mut counter = 0;
+   |                 ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_counter`
+
+warning: variable does not need to be mutable
+  --> consensus/src/config.rs:97:13
+   |
+97 |         let mut counter = 0;
+   |             ----^^^^^^^
+   |             |
+   |             help: remove this `mut`
+
+warning: variable `firewall` is assigned to, but never used
+   --> consensus/src/core.rs:595:29
+    |
+595 |                     let mut firewall = self.network.firewall.get_mut(&current_firewall).unwrap();
+    |                             ^^^^^^^^
+    |
+    = note: consider using `_firewall` instead
+
+warning: value assigned to `firewall` is never read
+   --> consensus/src/core.rs:596:21
+    |
+596 |                     firewall = self.network.firewall.get_mut(&((self.network.firewall.len()-1) as u64)).unwrap();
+    |                     ^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: variable `firewall` is assigned to, but never used
+   --> consensus/src/core.rs:599:25
+    |
+599 |                 let mut firewall = self.network.firewall.get_mut(&current_firewall).unwrap();
+    |                         ^^^^^^^^
+    |
+    = note: consider using `_firewall` instead
+
+warning: value assigned to `firewall` is never read
+   --> consensus/src/core.rs:600:17
+    |
+600 |                 firewall = self.network.firewall.get_mut(&((self.network.firewall.len()-1) as u64)).unwrap();
+    |                 ^^^^^^^^
+    |
+    = help: maybe it is overwritten before being read?
+
+warning: unused variable: `handles`
+   --> consensus/src/core.rs:629:17
+    |
+629 |             let handles = network
+    |                 ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_handles`
+
+warning: unused variable: `handles`
+   --> consensus/src/core.rs:711:17
+    |
+711 |             let handles = network
+    |                 ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_handles`
+
+warning: variable does not need to be mutable
+  --> consensus/src/leader.rs:24:13
+   |
+24 |         let mut keys: Vec<_> = self.committee.authorities.keys().cloned().collect();
+   |             ----^^^^
+   |             |
+   |             help: remove this `mut`
+
+warning: unused variable: `firewall`
+  --> consensus/src/synchronizer.rs:38:9
+   |
+38 |         firewall: HashMap<u64,Vec<SocketAddr>>,
+   |         ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_firewall`
+
+warning: unused variable: `allow_communications_at_round`
+  --> consensus/src/synchronizer.rs:39:9
+   |
+39 |         allow_communications_at_round: u64,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_allow_communications_at_round`
+
+warning: struct `NewHelper` is never constructed
+  --> consensus/src/new_helper.rs:19:12
+   |
+19 | pub struct NewHelper {
+   |            ^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: associated items `spawn` and `run` are never used
+  --> consensus/src/new_helper.rs:32:12
+   |
+31 | impl NewHelper {
+   | -------------- associated items in this implementation
+32 |     pub fn spawn(name: PublicKey, committee: Committee, store: Store, rx_requests: Receiver<(Digest, u64, PublicKey)>, firewall: HashMap<u64,Vec<SocketAddr>>, allow_communications_at...
+   |            ^^^^^
+...
+46 |     async fn run(&mut self) {
+   |              ^^^
+
+warning: associated function `new` is never used
+   --> consensus/src/messages.rs:123:12
+    |
+122 | impl FirstBlocks {
+    | ---------------- associated function in this implementation
+123 |     pub fn new(
+    |            ^^^
+
+warning: field `blocks_channel` is never read
+  --> consensus/src/synchronizer.rs:28:5
+   |
+25 | pub struct Synchronizer {
+   |            ------------ field in this struct
+...
+28 |     blocks_channel: Sender<(Block, PublicKey)>,
+   |     ^^^^^^^^^^^^^^
+
+warning: method `sync_blocks` is never used
+   --> consensus/src/synchronizer.rs:160:18
+    |
+31  | impl Synchronizer {
+    | ----------------- method in this implementation
+...
+160 |     pub async fn sync_blocks(&mut self, block: &Block, sender: PublicKey) -> ConsensusResult<Option<Block>> {
+    |                  ^^^^^^^^^^^
+
+Num twins 8
+[92mStarting local benchmark[0m
+Setting up testbed...
+Waiting for the nodes to synchronize...
+Running benchmark (60 sec)...
+Parsing logs...
+[1m[93mWARN[0m: Clients missed their target rate 370 time(s)
+[1m[93mWARN[0m: Nodes timed out 57 time(s)
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Faults: 0 nodes
+ Committee size: 15 nodes
+ Input rate: 40,005 tx/s
+ Transaction size: 512 B
+ Execution time: 53 s
+
+ Consensus timeout delay: 1,000 ms
+ Consensus sync retry delay: 10,000 ms
+ Mempool GC depth: 50 rounds
+ Mempool sync retry delay: 5,000 ms
+ Mempool sync retry nodes: 3 nodes
+ Mempool batch size: 15,000 B
+ Mempool max batch delay: 10 ms
+
+ + RESULTS:
+ Consensus TPS: 37,604 tx/s
+ Consensus BPS: 19,253,148 B/s
+ Consensus latency: 445 ms
+
+ End-to-end TPS: 37,333 tx/s
+ End-to-end BPS: 19,114,354 B/s
+ End-to-end latency: 1,297 ms
+-----------------------------------------
+

@@ -1,0 +1,63 @@
+warning: variable does not need to be mutable
+   --> consensus/src/core.rs:605:17
+    |
+605 |             let mut sync_to_sender;
+    |                 ----^^^^^^^^^^^^^^
+    |                 |
+    |                 help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` on by default
+
+warning: unused variable: `common_parent`
+   --> consensus/src/core.rs:444:13
+    |
+444 |         let common_parent = alt_chain[left].digest();
+    |             ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_common_parent`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: value assigned to `blocks` is never read
+  --> consensus/src/synchronizer.rs:94:41
+   |
+94 | ...                   let mut blocks = 0;
+   |                               ^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+   = note: `#[warn(unused_assignments)]` on by default
+
+Num twins 2
+[92mStarting local benchmark[0m
+Setting up testbed...
+Waiting for the nodes to synchronize...
+Running benchmark (20 sec)...
+Parsing logs...
+[1m[93mWARN[0m: Nodes timed out 15 time(s)
+
+-----------------------------------------
+ SUMMARY:
+-----------------------------------------
+ + CONFIG:
+ Faults: 0 nodes
+ Committee size: 6 nodes
+ Input rate: 1,002 tx/s
+ Transaction size: 512 B
+ Execution time: 16 s
+
+ Consensus timeout delay: 1,000 ms
+ Consensus sync retry delay: 10,000 ms
+ Mempool GC depth: 50 rounds
+ Mempool sync retry delay: 5,000 ms
+ Mempool sync retry nodes: 3 nodes
+ Mempool batch size: 15,000 B
+ Mempool max batch delay: 10 ms
+
+ + RESULTS:
+ Consensus TPS: 604 tx/s
+ Consensus BPS: 309,411 B/s
+ Consensus latency: 1,445 ms
+
+ End-to-end TPS: 601 tx/s
+ End-to-end BPS: 307,536 B/s
+ End-to-end latency: 1,881 ms
+-----------------------------------------
+

@@ -1,0 +1,181 @@
+{
+    "consensus": {
+        "authorities": {
+            "0KSfRhP77CtgzCblIo1J+9Zqru6gOAnQD695ZkxCLnU=": {
+                "address": "127.0.0.1:11008",
+                "name": "0KSfRhP77CtgzCblIo1J+9Zqru6gOAnQD695ZkxCLnU=",
+                "stake": 1
+            },
+            "0w5EbHB6E/RV+uOB4lcTwfkgbar0qgv2C6407Hs32ro=": {
+                "address": "127.0.0.1:11012",
+                "name": "0w5EbHB6E/RV+uOB4lcTwfkgbar0qgv2C6407Hs32ro=",
+                "stake": 1
+            },
+            "8Hgi0FyMVOVGENJb0EIXh8iEQb9M+kT58z1K8mmz0nI=": {
+                "address": "127.0.0.1:11004",
+                "name": "8Hgi0FyMVOVGENJb0EIXh8iEQb9M+kT58z1K8mmz0nI=",
+                "stake": 1
+            },
+            "BV2hMvIawwrC5aGVbathARB3dyr4RlMV7EDZGRvEi/U=": {
+                "address": "127.0.0.1:11003",
+                "name": "BV2hMvIawwrC5aGVbathARB3dyr4RlMV7EDZGRvEi/U=",
+                "stake": 1
+            },
+            "KJYhRt4YbxWSzYcuuIDLxZsdfKe+wsk9kkSgXVQUogk=": {
+                "address": "127.0.0.1:11014",
+                "name": "KJYhRt4YbxWSzYcuuIDLxZsdfKe+wsk9kkSgXVQUogk=",
+                "stake": 1
+            },
+            "N4D+cQsksu74yfYA/+R80DP3A0cqLEDJayscUDWRep8=": {
+                "address": "127.0.0.1:11013",
+                "name": "N4D+cQsksu74yfYA/+R80DP3A0cqLEDJayscUDWRep8=",
+                "stake": 1
+            },
+            "Nzq0+ot/QKEB0f65WaUGnRO39EOx0g8x2hn/PIzFxS8=": {
+                "address": "127.0.0.1:11005",
+                "name": "Nzq0+ot/QKEB0f65WaUGnRO39EOx0g8x2hn/PIzFxS8=",
+                "stake": 1
+            },
+            "PZOJ+8ilzbFIR7fSkqZQywvR2N/aM8hhA9mMBM+CYro=": {
+                "address": "127.0.0.1:11000",
+                "name": "PZOJ+8ilzbFIR7fSkqZQywvR2N/aM8hhA9mMBM+CYro=",
+                "stake": 1
+            },
+            "ex//zpUHjpEPtk1yH8zl3yIXWEuquPzQPiUmso6kxc4=": {
+                "address": "127.0.0.1:11006",
+                "name": "ex//zpUHjpEPtk1yH8zl3yIXWEuquPzQPiUmso6kxc4=",
+                "stake": 1
+            },
+            "gN6UQ/rVjT5nX2gR0WW0shsLJtRzt4pFjqDhpTIMvak=": {
+                "address": "127.0.0.1:11007",
+                "name": "gN6UQ/rVjT5nX2gR0WW0shsLJtRzt4pFjqDhpTIMvak=",
+                "stake": 1
+            },
+            "i6yEAkkOuOLLPmRyMg/QQLvE4HG0x+wldz6cSiS8UCs=": {
+                "address": "127.0.0.1:11002",
+                "name": "i6yEAkkOuOLLPmRyMg/QQLvE4HG0x+wldz6cSiS8UCs=",
+                "stake": 1
+            },
+            "ltjkx1hL0pMjxdTcarsKYCubF5mIPcxPvg5I4l5SDSs=": {
+                "address": "127.0.0.1:11011",
+                "name": "ltjkx1hL0pMjxdTcarsKYCubF5mIPcxPvg5I4l5SDSs=",
+                "stake": 1
+            },
+            "py8v6fDM0BJ870WRQSFC1obj/iBh3k5sft9rvUarZMc=": {
+                "address": "127.0.0.1:11010",
+                "name": "py8v6fDM0BJ870WRQSFC1obj/iBh3k5sft9rvUarZMc=",
+                "stake": 1
+            },
+            "xH/Znr2ZjeEzoDpwS9O2lfg4AO5wJ/2F0XeZLtB0mSU=": {
+                "address": "127.0.0.1:11001",
+                "name": "xH/Znr2ZjeEzoDpwS9O2lfg4AO5wJ/2F0XeZLtB0mSU=",
+                "stake": 1
+            },
+            "y6at4b+JPyvYrtQLF0tGUoUmvsbXOesIuRn888EOuc8=": {
+                "address": "127.0.0.1:11009",
+                "name": "y6at4b+JPyvYrtQLF0tGUoUmvsbXOesIuRn888EOuc8=",
+                "stake": 1
+            }
+        },
+        "epoch": 1,
+        "faults": 2,
+        "num_of_twins": 8
+    },
+    "mempool": {
+        "authorities": {
+            "0KSfRhP77CtgzCblIo1J+9Zqru6gOAnQD695ZkxCLnU=": {
+                "mempool_address": "127.0.0.1:11038",
+                "name": "0KSfRhP77CtgzCblIo1J+9Zqru6gOAnQD695ZkxCLnU=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11023"
+            },
+            "0w5EbHB6E/RV+uOB4lcTwfkgbar0qgv2C6407Hs32ro=": {
+                "mempool_address": "127.0.0.1:11042",
+                "name": "0w5EbHB6E/RV+uOB4lcTwfkgbar0qgv2C6407Hs32ro=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11027"
+            },
+            "8Hgi0FyMVOVGENJb0EIXh8iEQb9M+kT58z1K8mmz0nI=": {
+                "mempool_address": "127.0.0.1:11034",
+                "name": "8Hgi0FyMVOVGENJb0EIXh8iEQb9M+kT58z1K8mmz0nI=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11019"
+            },
+            "BV2hMvIawwrC5aGVbathARB3dyr4RlMV7EDZGRvEi/U=": {
+                "mempool_address": "127.0.0.1:11033",
+                "name": "BV2hMvIawwrC5aGVbathARB3dyr4RlMV7EDZGRvEi/U=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11018"
+            },
+            "KJYhRt4YbxWSzYcuuIDLxZsdfKe+wsk9kkSgXVQUogk=": {
+                "mempool_address": "127.0.0.1:11044",
+                "name": "KJYhRt4YbxWSzYcuuIDLxZsdfKe+wsk9kkSgXVQUogk=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11029"
+            },
+            "N4D+cQsksu74yfYA/+R80DP3A0cqLEDJayscUDWRep8=": {
+                "mempool_address": "127.0.0.1:11043",
+                "name": "N4D+cQsksu74yfYA/+R80DP3A0cqLEDJayscUDWRep8=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11028"
+            },
+            "Nzq0+ot/QKEB0f65WaUGnRO39EOx0g8x2hn/PIzFxS8=": {
+                "mempool_address": "127.0.0.1:11035",
+                "name": "Nzq0+ot/QKEB0f65WaUGnRO39EOx0g8x2hn/PIzFxS8=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11020"
+            },
+            "PZOJ+8ilzbFIR7fSkqZQywvR2N/aM8hhA9mMBM+CYro=": {
+                "mempool_address": "127.0.0.1:11030",
+                "name": "PZOJ+8ilzbFIR7fSkqZQywvR2N/aM8hhA9mMBM+CYro=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11015"
+            },
+            "ex//zpUHjpEPtk1yH8zl3yIXWEuquPzQPiUmso6kxc4=": {
+                "mempool_address": "127.0.0.1:11036",
+                "name": "ex//zpUHjpEPtk1yH8zl3yIXWEuquPzQPiUmso6kxc4=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11021"
+            },
+            "gN6UQ/rVjT5nX2gR0WW0shsLJtRzt4pFjqDhpTIMvak=": {
+                "mempool_address": "127.0.0.1:11037",
+                "name": "gN6UQ/rVjT5nX2gR0WW0shsLJtRzt4pFjqDhpTIMvak=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11022"
+            },
+            "i6yEAkkOuOLLPmRyMg/QQLvE4HG0x+wldz6cSiS8UCs=": {
+                "mempool_address": "127.0.0.1:11032",
+                "name": "i6yEAkkOuOLLPmRyMg/QQLvE4HG0x+wldz6cSiS8UCs=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11017"
+            },
+            "ltjkx1hL0pMjxdTcarsKYCubF5mIPcxPvg5I4l5SDSs=": {
+                "mempool_address": "127.0.0.1:11041",
+                "name": "ltjkx1hL0pMjxdTcarsKYCubF5mIPcxPvg5I4l5SDSs=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11026"
+            },
+            "py8v6fDM0BJ870WRQSFC1obj/iBh3k5sft9rvUarZMc=": {
+                "mempool_address": "127.0.0.1:11040",
+                "name": "py8v6fDM0BJ870WRQSFC1obj/iBh3k5sft9rvUarZMc=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11025"
+            },
+            "xH/Znr2ZjeEzoDpwS9O2lfg4AO5wJ/2F0XeZLtB0mSU=": {
+                "mempool_address": "127.0.0.1:11031",
+                "name": "xH/Znr2ZjeEzoDpwS9O2lfg4AO5wJ/2F0XeZLtB0mSU=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11016"
+            },
+            "y6at4b+JPyvYrtQLF0tGUoUmvsbXOesIuRn888EOuc8=": {
+                "mempool_address": "127.0.0.1:11039",
+                "name": "y6at4b+JPyvYrtQLF0tGUoUmvsbXOesIuRn888EOuc8=",
+                "stake": 1,
+                "transactions_address": "127.0.0.1:11024"
+            }
+        },
+        "epoch": 1,
+        "faults": 2,
+        "num_of_twins": 8
+    }
+}

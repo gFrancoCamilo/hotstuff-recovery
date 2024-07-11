@@ -1,0 +1,27 @@
+{
+    "testbed": "hotstuff",
+    "key": {
+        "name": "tundra",
+        "path": "/home/gfrancoc/.ssh/aws"
+    },
+    "ports": {
+        "consensus": 10000,
+        "mempool": 7000,
+        "front": 6000
+    },
+    "repo": {
+        "name": "hotstuff-recovery",
+        "url": "https://github.com/gFrancoCamilo/hotstuff-recovery.git",
+        "branch": "main"
+    },
+    "instances": {
+        "type": "m5d.2xlarge",
+        "regions": [
+            "us-east-1",
+            "eu-north-1",
+            "us-west-1",
+	    "ap-southeast-2",
+            "ap-northeast-1"
+        ]
+    }
+}
