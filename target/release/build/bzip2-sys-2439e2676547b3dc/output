@@ -21,13 +21,13 @@ cargo:rerun-if-env-changed=HOST_CFLAGS
 HOST_CFLAGS = None
 cargo:rerun-if-env-changed=CFLAGS
 CFLAGS = None
-running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/blocksort.o" "-c" "bzip2-1.0.8/blocksort.c"
-running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/huffman.o" "-c" "bzip2-1.0.8/huffman.c"
-running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/crctable.o" "-c" "bzip2-1.0.8/crctable.c"
-running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/randtable.o" "-c" "bzip2-1.0.8/randtable.c"
-running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/compress.o" "-c" "bzip2-1.0.8/compress.c"
-running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/decompress.o" "-c" "bzip2-1.0.8/decompress.c"
-running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/bzlib.o" "-c" "bzip2-1.0.8/bzlib.c"
+running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/blocksort.o" "-c" "bzip2-1.0.8/blocksort.c"
+running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/huffman.o" "-c" "bzip2-1.0.8/huffman.c"
+running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/crctable.o" "-c" "bzip2-1.0.8/crctable.c"
+running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/randtable.o" "-c" "bzip2-1.0.8/randtable.c"
+running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/compress.o" "-c" "bzip2-1.0.8/compress.c"
+running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/decompress.o" "-c" "bzip2-1.0.8/decompress.c"
+running: "cc" "-O3" "-ffunction-sections" "-fdata-sections" "-fPIC" "-m64" "-I" "bzip2-1.0.8" "-D_FILE_OFFSET_BITS=64" "-DBZ_NO_STDIO" "-o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/bzlib.o" "-c" "bzip2-1.0.8/bzlib.c"
 exit status: 0
 exit status: 0
 exit status: 0
@@ -51,11 +51,11 @@ cargo:rerun-if-env-changed=HOST_ARFLAGS
 HOST_ARFLAGS = None
 cargo:rerun-if-env-changed=ARFLAGS
 ARFLAGS = None
-running: ZERO_AR_DATE="1" "ar" "cq" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/libbz2.a" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/blocksort.o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/huffman.o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/crctable.o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/randtable.o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/compress.o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/decompress.o" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/bzlib.o"
+running: ZERO_AR_DATE="1" "ar" "cq" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/libbz2.a" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/blocksort.o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/huffman.o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/crctable.o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/randtable.o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/compress.o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/decompress.o" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/bzip2-1.0.8/bzlib.o"
 exit status: 0
-running: "ar" "s" "/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/libbz2.a"
+running: "ar" "s" "/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib/libbz2.a"
 exit status: 0
 cargo:rustc-link-lib=static=bz2
-cargo:rustc-link-search=native=/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib
-cargo:root=/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out
-cargo:include=/home/gfrancoc/our_git/hotstuff-test/target/release/build/bzip2-sys-2439e2676547b3dc/out/include
+cargo:rustc-link-search=native=/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/lib
+cargo:root=/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out
+cargo:include=/home/gfrancoc/new_git/hotstuff-recovery/target/release/build/bzip2-sys-2439e2676547b3dc/out/include

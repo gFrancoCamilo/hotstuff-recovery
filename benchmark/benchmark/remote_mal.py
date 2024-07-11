@@ -152,8 +152,10 @@ class BenchMal:
         # Generate configuration files.
         keys = []
         key_files = [PathMaker.key_file(i) for i in range(len(hosts))]
+        i = 0
         for filename in key_files:
-            cmd = CommandMaker.generate_key(filename).split()
+            cmd = CommandMaker.generate_key(filename, i).split()
+            i += 1
             subprocess.run(cmd, check=True)
             keys += [Key.from_file(filename)]
 
@@ -185,7 +187,7 @@ class BenchMal:
 
         return committee
 
-    def _run_single(self, hosts, rate, bench_parameters, node_parameters, debug=False):
+    def _run_single(self, hosts, rate, bench_parameters, node_parameters, debug=True):
         Print.info('Booting testbed...')
 
         # Kill any potentially unfinished run and delete logs.
@@ -256,7 +258,7 @@ class BenchMal:
         Print.info('Parsing logs and computing performance...')
         return LogParser.process(PathMaker.logs_path(), faults=faults)
 
-    def run(self, bench_parameters_dict, node_parameters_dict, network_parameters_filepath, dns_filepath, debug=False):
+    def run(self, bench_parameters_dict, node_parameters_dict, network_parameters_filepath, dns_filepath, debug=True):
         assert isinstance(debug, bool)
         Print.heading('Starting remote benchmark')
         hosts = self.manager.hosts()
@@ -266,7 +268,7 @@ class BenchMal:
 
         dns = {}
         for i in range(len(all_ips)):
-            dns[i] = all_ips[i]
+            dns[i] = all_ips[i] + ":10000"
         print(dns)
         with open("./benchmark/.dns.json","w") as f:
             dump(dns, f, indent=4, sort_keys=True)

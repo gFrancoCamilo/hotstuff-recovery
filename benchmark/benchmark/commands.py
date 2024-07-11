@@ -25,7 +25,7 @@ class CommandMaker:
         return f'./node keys --filename {filename} {i}'
 
     @staticmethod
-    def run_node(keys, committee, store, parameters, id, debug=False):
+    def run_node(keys, committee, store, parameters, id, debug=True):
         assert isinstance(keys, str)
         assert isinstance(committee, str)
         assert isinstance(parameters, str)
