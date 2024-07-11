@@ -67,8 +67,8 @@ impl DelayedSender {
     pub async fn send(&mut self, address: SocketAddr, data: Bytes, current_round: u64) {
 
         // We compute a random number that will be used to simulate transmission delay
-        let delay = rand::thread_rng().gen_range(0,self.network_delay);
-        thread::sleep(time::Duration::from_millis(delay));
+        //let delay = rand::thread_rng().gen_range(0,self.network_delay);
+        //thread::sleep(time::Duration::from_millis(delay));
         let virtual_address = self.dns[&address];
 
         //if !self.firewall.get(&(current_round/self.allow_communications_at_round)).unwrap_or(&self.firewall[&((self.firewall.len()-1) as u64)]).contains(&address){
