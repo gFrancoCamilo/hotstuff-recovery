@@ -122,8 +122,8 @@ impl TCMaker {
     ) -> ConsensusResult<Option<TC>> {
         let author = timeout.author;
 
-        //debug!("Inside TCMaker. Threshold is {:?}", committee.quorum_threshold());
-        //debug!("Inside TCMaker. Votes is {:?}, used is {:?}", self.votes.clone(), self.used.clone());
+        debug!("Inside TCMaker. Threshold is {:?}", committee.quorum_threshold());
+        debug!("Inside TCMaker. Votes is {:?}, used is {:?}", self.votes.clone(), self.used.clone());
         // Ensure it is the first time this authority votes.
         ensure!(
             self.used.insert(author),
