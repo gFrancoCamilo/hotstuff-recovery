@@ -955,7 +955,7 @@ impl Core {
         }
         
         if self.network.allow_communications_at_round < self.round {
-            let author_address = self.committee.authorities[&block.author].address;
+            //let author_address = self.committee.authorities[&block.author].address;
             let mut sync_to_sender;
             {
                 let my_requests = SENT_SYNCS.lock().unwrap();
