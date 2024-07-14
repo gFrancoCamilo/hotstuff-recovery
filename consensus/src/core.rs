@@ -568,6 +568,7 @@ impl Core {
             local_representative = bincode::deserialize(&bytes).expect("Failed to deserialize our own block");
         }
         while !child_qc.eq(local_representative.parent()) {
+            debug!("Value of local here is {:?}", local_representative);
             if let Some(bytes) = self.store.read(local_representative.parent().to_vec()).await.expect("Failed to read block"){
                 local_representative = bincode::deserialize(&bytes).expect("Failed to deserialize our own block");
             }
