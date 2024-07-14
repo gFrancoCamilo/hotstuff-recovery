@@ -579,9 +579,9 @@ impl Core {
             debug!("Value of local_representative: {:?}; Value of alt_chain: {:?}", local_representative.digest().clone(), alt_chain[left-1].digest().clone());
             debug!("Remaining at the same chain");
             debug!("Value of high qc now is {:?}", self.high_qc.hash.clone());
-            //if local_representative.digest() != alt_chain[left - 1].digest(){ 
-            self.alt_tips.push(alt_chain[0].digest());
-            //}
+            if local_representative.digest() != alt_chain[left - 1].digest(){ 
+                self.alt_tips.push(alt_chain[0].digest());
+            }
             let my_clique = self.get_clique_from_sender(self.name);
             //let _last_position = my_clique.pop().expect("Failed to get last position");
             let mut parties_to_kick: &[std::net::SocketAddr];
