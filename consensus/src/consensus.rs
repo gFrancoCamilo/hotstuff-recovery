@@ -60,7 +60,7 @@ pub enum ConsensusMessage {
     NewSyncRequest(Digest, u64, PublicKey),
     Blocks(Blocks),
     FirstBlocks(Blocks, Vec<SocketAddr>),
-    ShiftedChain(PublicKey, Vec<SocketAddr>),
+    ShiftedChain(PublicKey, Vec<SocketAddr>, u64),
 }
 
 pub struct Consensus;

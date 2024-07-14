@@ -215,7 +215,7 @@ impl Core {
         if qc.round > self.high_qc.round {
             self.high_qc = qc.clone();
         }
-        //info!("Inside updating high qc. Value is now {:?}", self.high_qc.clone());
+        info!("Inside updating high qc. Value is now {:?}", self.high_qc.clone());
     }
 
     async fn local_timeout_round(&mut self) -> ConsensusResult<()> {
@@ -319,6 +319,7 @@ impl Core {
         // Ensure the timeout is well formed.
         timeout.verify(&self.committee)?;
 
+        debug!("Processing {:?}", timeout);
         // Process the QC embedded in the timeout.
         self.process_qc(&timeout.high_qc).await;
 
@@ -647,7 +648,7 @@ impl Core {
                 .collect();
             let my_clique: Vec<_> = addresses.clone().into_iter().filter(|x| !self.network.firewall[&((self.network.firewall.len()-1) as u64)].contains(&x)).collect();
             //let my_clique_content: Vec<_> = my_clique.iter().filter
-            let message = ConsensusMessage::ShiftedChain(self.name,my_clique.clone());
+            let message = ConsensusMessage::ShiftedChain(self.name,my_clique.clone(), self.round);
             let message = bincode::serialize(&message)
                 .expect("Failed to serialize timeout message");
             debug!("Sending shifted chain message to nodes not in my firewall. My clique {:?}", my_clique.clone());
@@ -724,6 +725,26 @@ impl Core {
                 firewall.extend(faulty_parties_addresses.clone());
                 debug!("Firewall update here is {:?}", firewall.clone());
             }
+            if self.round/self.network.allow_communications_at_round < ((self.network.firewall.len()-2) as u64) {
+                let mut current_firewall = self.round/self.network.allow_communications_at_round;
+                let last_index = (self.network.firewall.len() - 1) as u64;
+                let last_firewall = self.network.firewall.get(&last_index).unwrap().clone();
+                let mut index = current_firewall;
+                while index != 0 {
+                    debug!("Value of current firewall here is {:?}", current_firewall);
+                    let mut firewall = self.network.firewall.get_mut(&current_firewall).unwrap();
+                    firewall.retain(|(&value)| value.to_string().find(':').map(|i| value.to_string()[i+1..].parse().ok()).flatten() > Some(10000 + current_firewall.clone())); // Filter pairs where value is less than 10
+
+                    //*firewall = Vec::new();
+                    //*firewall = last_firewall.clone();
+                    //firewall = self.network.firewall.get_mut(&((self.network.firewall.len()-1) as u64)).unwrap();
+                    index = index - 1;
+                }
+                let mut firewall = self.network.firewall.get_mut(&index).unwrap();
+                //*firewall = Vec::new();
+                //*firewall = last_firewall.clone();
+                firewall.retain(|(&value)| value.to_string().find(':').map(|i| value.to_string()[i+1..].parse().ok()).flatten() > Some(10000 + current_firewall.clone())); // Filter pairs where value is less than 10
+            } 
             debug!("Sending new firewall to proposer");
             self.tx_proposer.send(ProposerMessage::UpdateFirewall(self.network.firewall.clone())).await.expect("Failed to update firewall");
 
@@ -736,7 +757,7 @@ impl Core {
                 .collect();
             let my_clique: Vec<_> = addresses.clone().into_iter().filter(|x| !self.network.firewall[&((self.network.firewall.len()-1) as u64)].contains(&x)).collect();
             //let my_clique_content: Vec<_> = my_clique.iter().filter
-            let message = bincode::serialize(&ConsensusMessage::ShiftedChain(self.name, my_clique.clone()))
+            let message = bincode::serialize(&ConsensusMessage::ShiftedChain(self.name, my_clique.clone(), self.round))
                 .expect("Failed to serialize timeout message");
             debug!("Sending shifted chain message to nodes not in my firewall. My clique {:?}", my_clique.clone());
             debug!("Sending shifted chain message to nodes not in my firewall. My addresses {:?}", addresses.clone());
@@ -1179,14 +1200,17 @@ impl Core {
         return_value
     }
 
-    async fn handle_shifted_chain (&mut self, author: PublicKey, shifted_chain: Vec<SocketAddr>) -> ConsensusResult <()> {
+    async fn handle_shifted_chain (&mut self, author: PublicKey, shifted_chain: Vec<SocketAddr>, round_number: u64) -> ConsensusResult <()> {
         //debug!("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
         let mut author_address = self.committee.address(&author).unwrap();
         let firewall_count = self.round/self.network.allow_communications_at_round;
 
         author_address = self.dns[&author_address]; 
+        debug!("Round received is {:?}", round_number.clone());
+        debug!("TRUE OR FALSE HERE IS {:?} and author address is {:?}", self.network.firewall.get(&(round_number/self.network.allow_communications_at_round)).unwrap(), author_address.clone());
         if author_address.to_string().find(':').map(|i| author_address.to_string()[i+1..].parse().ok()).flatten() < Some((self.committee.faults) + 10000 + 1)
             && self.network.firewall.get(&(firewall_count)).unwrap_or(&self.network.firewall[&((self.network.firewall.len()-1) as u64)]).clone().contains(&author_address)
+                && self.network.firewall.get(&(round_number/self.network.allow_communications_at_round)).unwrap_or(&self.network.firewall[&((self.network.firewall.len()-1) as u64)]).clone().contains(&author_address)
         {
             debug!("Ignoring shifted message from {:?}", author_address.clone());
             return Ok(());
@@ -1195,7 +1219,8 @@ impl Core {
             debug!("Ignoring shifted message from {:?}", author_address.clone());
             return Ok(());
         }
-        
+        self.round = round_number;
+    
         let mut shift_chain_copy = shifted_chain.clone();
         shift_chain_copy.sort();
         if self.get_my_current_clique (author) == shift_chain_copy { 
@@ -1251,7 +1276,7 @@ impl Core {
                     ConsensusMessage::Blocks(blocks) => self.process_blocks(blocks).await,
                     ConsensusMessage::FirstBlocks(blocks, committee) => { {let mut my_lock = REQUEST_CLIQUES.lock().unwrap(); if !my_lock.contains_key(&blocks.sender){ my_lock.insert(blocks.sender, committee); debug!("My lock here is {:?}", *my_lock);}} self.process_blocks(blocks).await},
                     ConsensusMessage::NewSyncRequest(digest, num_blocks, origin) => self.handle_new_sync_requests(digest, num_blocks, origin).await,
-                    ConsensusMessage::ShiftedChain(author, shifted_chain) => self.handle_shifted_chain(author, shifted_chain).await,//{ shifted_chain.sort(); if self.get_my_current_clique (author) == shifted_chain { debug!("HHHHHHHHHHHHHHHHHHHHH"); return; } if author == self.name {return;} let mut keys = Vec::new(); for (key, value) in self.committee.authorities.iter() {if shifted_chain.contains(&value.address){keys.push(key.clone())}}; let mut sent_sync = Vec::new(); {let mut my_requests = SENT_SYNCS.lock().unwrap(); sent_sync = keys.iter().map(|x| my_requests.contains_key(&x)).collect(); let mut iter = sent_sync.iter(); keys.retain(|_| *iter.next().unwrap());} let my_tip_clone; {my_tip_clone = MY_TIP.lock().unwrap().clone();} let bytes = self.store.read(my_tip_clone.clone().to_vec()).await.unwrap().expect("Failed to read blocks"); let block: Block = bincode::deserialize(&bytes).expect("Failed to deserialize our own block"); debug!("Key here in shifted is {:?} and sent_sync is {:?} and author is {:?}", keys.clone(), sent_sync.clone(), shifted_chain); if keys.is_empty() {debug!("Making new sync request from shifted message to node {:?}", author.clone()); self.make_new_sync_request(&block.clone(), author.clone()).await;} Ok(())},
+                    ConsensusMessage::ShiftedChain(author, shifted_chain, round_number) => self.handle_shifted_chain(author, shifted_chain, round_number).await,//{ shifted_chain.sort(); if self.get_my_current_clique (author) == shifted_chain { debug!("HHHHHHHHHHHHHHHHHHHHH"); return; } if author == self.name {return;} let mut keys = Vec::new(); for (key, value) in self.committee.authorities.iter() {if shifted_chain.contains(&value.address){keys.push(key.clone())}}; let mut sent_sync = Vec::new(); {let mut my_requests = SENT_SYNCS.lock().unwrap(); sent_sync = keys.iter().map(|x| my_requests.contains_key(&x)).collect(); let mut iter = sent_sync.iter(); keys.retain(|_| *iter.next().unwrap());} let my_tip_clone; {my_tip_clone = MY_TIP.lock().unwrap().clone();} let bytes = self.store.read(my_tip_clone.clone().to_vec()).await.unwrap().expect("Failed to read blocks"); let block: Block = bincode::deserialize(&bytes).expect("Failed to deserialize our own block"); debug!("Key here in shifted is {:?} and sent_sync is {:?} and author is {:?}", keys.clone(), sent_sync.clone(), shifted_chain); if keys.is_empty() {debug!("Making new sync request from shifted message to node {:?}", author.clone()); self.make_new_sync_request(&block.clone(), author.clone()).await;} Ok(())},
                     //self.shift_committee(shifting_committee).await,
                     _ => panic!("Unexpected protocol message")
                 },
