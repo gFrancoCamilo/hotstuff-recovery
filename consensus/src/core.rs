@@ -965,9 +965,11 @@ impl Core {
             let mut sync_to_sender;
             {
                 let my_requests = SENT_SYNCS.lock().unwrap();
+                debug!("My requests here is {:?}", my_requests.clone());
                 sync_to_sender = my_requests.contains_key(&block.author);
             }
             debug!("Value of alt_tips here is {:?}", self.alt_tips.clone());
+            debug!("Author address is {:?}", author_address.clone());
             if self.network.firewall.get(&((self.round/self.network.allow_communications_at_round)-1)).unwrap_or(&self.network.firewall[&((self.network.firewall.len()-3) as u64)]).contains(&author_address) && !self.network.firewall.get(&(self.round/self.network.allow_communications_at_round)).unwrap_or(&self.network.firewall[&((self.network.firewall.len()-2) as u64)]).contains(&author_address) 
                 && !sync_to_sender {
                 debug!("GOt HEEEEEEEEEEEEEEEEEEEEERE");
