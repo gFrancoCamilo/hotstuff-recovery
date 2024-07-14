@@ -266,18 +266,28 @@ class BenchMal:
         for host in hosts:
             all_ips += hosts[host]
 
-        dns = {}
-        for i in range(len(all_ips)):
-            dns[i] = all_ips[i] + ":10000"
-        print(dns)
-        with open("./benchmark/.dns.json","w") as f:
-            dump(dns, f, indent=4, sort_keys=True)
+        #dns = {}
+        #for i in range(len(all_ips)):
+        #    dns[i] = all_ips[i] + ":10000"
+        #print(dns)
+        #with open("./benchmark/.dns.json","w") as f:
+        #    dump(dns, f, indent=4, sort_keys=True)
         with open(network_parameters_filepath) as f:
             data = load(f)
-        with open(dns_filepath) as sf:
-            dns = load(sf)
         try:
             bench_parameters = BenchParameters(bench_parameters_dict)
+            selected_hosts = self._select_hosts(bench_parameters)
+            
+            dns = {}
+            for i in range(len(all_ips)):
+                dns[i] = selected_hosts[i] + ":10000"
+            print(dns)
+            with open("./benchmark/.dns.json","w") as f:
+                dump(dns, f, indent=4, sort_keys=True)
+
+            with open(dns_filepath) as sf:
+                dns = load(sf)
+
             self.node_parameters = []
             for i in range(bench_parameters_dict['nodes']):
                 self.node_parameters.append(NodeParameters(node_parameters_dict, data['node_'+str(i)], data['allow_communications_at_round'], data['network_delay'], dns))
@@ -291,7 +301,7 @@ class BenchMal:
         self.allow_communications_at_round = data['allow_communications_at_round']
 
         # Select which hosts to use.
-        selected_hosts = self._select_hosts(bench_parameters)
+        #selected_hosts = self._select_hosts(bench_parameters)
         if not selected_hosts:
             Print.warn('There are not enough instances available')
             return

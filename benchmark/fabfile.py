@@ -161,9 +161,9 @@ def remotemal(ctx):
     bench_params = {
         'faults': 0,
         'nodes': 15,
-        'rate': 100_000,
+        'rate': 50_000,
         'tx_size': 512,
-        'duration': 100,
+        'duration': 200,
         'runs': 1,
     }
     node_params = {
@@ -182,7 +182,7 @@ def remotemal(ctx):
     network_parameters_filepath = './benchmark/.network_params.json'
     dns_filepath = './benchmark/.dns.json'
     try:
-        BenchMal(ctx).run(bench_params, node_params, network_parameters_filepath, dns_filepath, debug=False)
+        BenchMal(ctx).run(bench_params, node_params, network_parameters_filepath, dns_filepath, debug=True)
     except BenchError as e:
         Print.error(e)
 

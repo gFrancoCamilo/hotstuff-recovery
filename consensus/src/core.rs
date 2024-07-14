@@ -965,7 +965,6 @@ impl Core {
             let mut sync_to_sender;
             {
                 let my_requests = SENT_SYNCS.lock().unwrap();
-                debug!("My requests here is {:?}", my_requests.clone());
                 sync_to_sender = my_requests.contains_key(&block.author);
             }
             debug!("Value of alt_tips here is {:?}", self.alt_tips.clone());

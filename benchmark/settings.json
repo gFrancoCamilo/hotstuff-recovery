@@ -1,8 +1,8 @@
 {
     "testbed": "hotstuff",
     "key": {
-        "name": "tundra",
-        "path": "/home/gfrancoc/.ssh/aws"
+        "name": "hotstuff",
+        "path": "/home/gustavo/.ssh/aws"
     },
     "ports": {
         "consensus": 10000,
@@ -15,7 +15,7 @@
         "branch": "main"
     },
     "instances": {
-        "type": "m5d.2xlarge",
+        "type": "m5d.xlarge",
         "regions": [
             "us-east-1",
             "eu-north-1",
