@@ -124,7 +124,7 @@ impl Proposer {
         let mut total_stake = self.committee.stake(&self.name);
         while let Some(stake) = wait_for_quorum.next().await {
             total_stake += stake;
-            if total_stake >= self.committee.quorum_threshold() {
+            if total_stake >= self.committee.quorum_threshold_firewall(self.network.firewall.get(&((self.network.firewall.len()-1) as u64)).unwrap().clone()) {
                 break;
             }
         }

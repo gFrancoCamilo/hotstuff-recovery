@@ -115,11 +115,11 @@ impl Committee {
         //2 * (total_votes) / 3 + 1
     }
     //
-    //pub fn quorum_threshold(&self, firewall: Vec<SocketAddr>) -> u32 {
-    //    let size = self.size_by_firewall(firewall.clone());
-    //    info!("Quorum threshold is {}", (2*(size as u32)/3 + 1));
-    //    2 * (size as u32)/3 + 1
-    //}
+    pub fn quorum_threshold_firewall(&self, firewall: Vec<SocketAddr>) -> u32 {
+        let size = self.size_by_firewall(firewall.clone());
+        info!("Quorum threshold by firewall is {}", (2*(size as u32)/3 + 1));
+        2 * (size as u32)/3 + 1
+    }
 
     pub fn address(&self, name: &PublicKey) -> Option<SocketAddr> {
         self.authorities.get(name).map(|x| x.address)

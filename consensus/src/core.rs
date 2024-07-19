@@ -146,10 +146,10 @@ impl Core {
             //debug!("Inside make vote: Block qc round {:?} iter qc rounds {:?}", block.qc.round.clone(), *tc.high_qc_rounds().iter().max().expect("Empty TC"));
             safety_rule_2 |= can_extend;
         }
-        safety_rule_2 = true;
-        safety_rule_1 = true;
+        //safety_rule_2 = true;
+        //safety_rule_1 = true;
         if !(safety_rule_1 && safety_rule_2) {
-            //debug!("Safety did not pass: Safety 1 is {:?} and safety 2 is {:?}", safety_rule_1.clone(), safety_rule_2.clone());
+            debug!("Safety did not pass: Safety 1 is {:?} and safety 2 is {:?}", safety_rule_1.clone(), safety_rule_2.clone());
             return None;
         }
 
@@ -281,7 +281,7 @@ impl Core {
         vote.verify(&self.committee)?;
 
         // Add the new vote to our aggregator and see if we have a quorum.
-        if let Some(qc) = self.aggregator.add_vote(vote.clone(), self.committee.quorum_threshold())? {
+        if let Some(qc) = self.aggregator.add_vote(vote.clone(), self.committee.quorum_threshold_firewall(self.network.firewall.get(&((self.network.firewall.len()-1) as u64)).unwrap().clone()))? {
             debug!("Assembled {:?}", qc);
 
             // Process the QC.
@@ -317,14 +317,14 @@ impl Core {
         }
 
         // Ensure the timeout is well formed.
-        timeout.verify(&self.committee)?;
+        timeout.verify(&self.committee, self.network.firewall.get(&((self.network.firewall.len()-1) as u64)).unwrap().clone())?;
 
         debug!("Processing {:?}", timeout);
         // Process the QC embedded in the timeout.
         self.process_qc(&timeout.high_qc).await;
 
         // Add the new vote to our aggregator and see if we have a quorum.
-        if let Some(tc) = self.aggregator.add_timeout(timeout.clone(), self.committee.quorum_threshold())? {
+        if let Some(tc) = self.aggregator.add_timeout(timeout.clone(), self.committee.quorum_threshold_firewall(self.network.firewall.get(&((self.network.firewall.len()-1) as u64)).unwrap().clone()))? {
             debug!("Assembled {:?}", tc);
 
             // Try to advance the round.
@@ -567,6 +567,9 @@ impl Core {
         if let Some(bytes) = self.store.read(local_tip.to_vec()).await.expect("Failed to read block"){
             local_representative = bincode::deserialize(&bytes).expect("Failed to deserialize our own block");
         }
+        if local_representative.digest().eq(&common_parent.clone()) {
+            return Ok(());
+        }
         while !child_qc.eq(local_representative.parent()) {
             debug!("Value of local here is {:?}", local_representative);
             if let Some(bytes) = self.store.read(local_representative.parent().to_vec()).await.expect("Failed to read block"){
@@ -609,11 +612,14 @@ impl Core {
                 let last_index = (self.network.firewall.len() - 1) as u64;
                 let last_firewall = self.network.firewall.get(&last_index).unwrap().clone();
                 let mut index = current_firewall;
+                let faults = self.committee.faults;
                 while index != 0 {
                     debug!("Value of current firewall here is {:?}", current_firewall);
                     let mut firewall = self.network.firewall.get_mut(&current_firewall).unwrap();
                     firewall.retain(|(&value)| value.to_string().find(':').map(|i| value.to_string()[i+1..].parse().ok()).flatten() > Some(10000 + current_firewall.clone())); // Filter pairs where value is less than 10
-
+                                                                                                                                                        
+                    let mut firewall_from_last = self.network.firewall.get_mut(&((self.network.firewall.len()-1-(current_firewall as usize)) as u64)).unwrap();
+                    firewall_from_last.retain(|(&value)| value.to_string().find(':').map(|i| value.to_string()[i+1..].parse().ok()).flatten() > Some(10000 + faults + 1)); // Filter pairs where value is less than 10
                     //*firewall = Vec::new();
                     //*firewall = last_firewall.clone();
                     //firewall = self.network.firewall.get_mut(&((self.network.firewall.len()-1) as u64)).unwrap();
@@ -1023,7 +1029,7 @@ impl Core {
         //info!("Processing Block {}", digest);
 
         // Check the block is correctly formed.
-        block.verify(&self.committee)?;
+        block.verify(&self.committee, self.network.firewall.get(&((self.network.firewall.len()-1) as u64)).unwrap().clone())?;
 
         // Process the QC. This may allow us to advance round.
         self.process_qc(&block.qc).await;
@@ -1173,7 +1179,7 @@ impl Core {
             return Ok(());
         }
 
-        tc.verify(&self.committee)?;
+        tc.verify(&self.committee, self.network.firewall.get(&((self.network.firewall.len()-1) as u64)).unwrap().clone())?;
         if tc.round < self.round {
             return Ok(());
         }

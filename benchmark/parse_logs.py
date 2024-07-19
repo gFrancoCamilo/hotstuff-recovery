@@ -5,6 +5,7 @@ from os.path import join
 from re import findall, search
 from statistics import mean
 from collections import Counter
+import pandas as pd
 import sys
 import matplotlib.pyplot as plt
 
@@ -97,7 +98,7 @@ def main():
     except (ValueError, IndexError) as e:
         raise Exception(f'Failed to parse node logs: {e}')
 
-    proposals, commit, sizes, start, end \
+    proposals, commit, sizes, start_all, end_all \
         = zip(*results)
 
     #commits = merge_results([x.items() for x in commit])
@@ -113,32 +114,70 @@ def main():
     execution_time = max(commit_two.values())-min(commit_two.values())
     start = []
     end = []
-    for x in start_sync:
+    for x in start_all:
         for y in x:
             start.append(y)
-    for x in end_sync:
+    for x in end_all:
         for y in x:
             end.append(y)
 
+    print(start)
+    print(end)
     start_time = min(start)-min(commit_two.values())
     end_time = max(end)-min(commit_two.values())
     min_time = min(commit_two.values())
     print('Min time is ' + str(min_time))
     print(start_time)
     print(end_time)
+    #print(commit_two)
+
+    batches = []
+    timestamp = []
+    for key in commit_two:
+        batches.append(key)
+        timestamp.append(commit_two[key]-min_time)
+
+    batch_size = []
+    for batch in batches:
+        batch_size.append(sizes_two[batch]/512)
+
+    dic = {}
+    i = 0
+    for time in timestamp:
+        if time not in dic:
+            dic[time] = []
+        dic[time].append(batch_size[i])
+        dic[time] = [sum(dic[time])]
+        i+=1
+
+    print(dic)
+    for batch in batch_size:
+        if batch == 1:
+            print(batch)
+    plt.scatter(timestamp, batch_size)
+    plt.grid()
+    plt.ylabel('Number of transactions')
+    plt.xlabel('Commit Time (s)')
+    plt.axvspan(start_time, end_time, color='blue', alpha=0.15, lw=0)
+    ax = plt.gca()
+    plt.savefig('transactions_time.pdf')
+    plt.clf()
+
     tps = []
     x = []
-    for i in range(5,int(execution_time) + 5 + 5, 5):
+    for i in range(15,int(execution_time) + 30, 15):
         x.append(i)
         bps_accumulator = 0
         for key in commit_two:
-            if commit_two[key] - min_time > i - 5 and commit_two[key] - min_time < i:
+            if commit_two[key] - min_time > i - 15 and commit_two[key] - min_time < i:
                 bps_accumulator += sizes_two[key]
         tps.append(bps_accumulator/512)
     
+    plt.clf()
     plt.plot(x, tps)
     ax = plt.gca()
-    #ax.set_xticklabels(['0', '[0,5]', '[5,10]', '[10,15]', '[15,20]', '[20,25]', '[25,30]', '[30,35]', '[35,40]'])
+    ax.set_xticks([i for i in range(30, 300, 60)])
+    ax.set_xticklabels(['[15,30]', '[75,90]', '[135,150]', '[195,210]', '[255,270]'])
     plt.grid()
     plt.ylabel('Number of transactions')
     plt.xlabel('Time Interval (s)')

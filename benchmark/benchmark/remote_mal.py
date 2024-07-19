@@ -266,6 +266,7 @@ class BenchMal:
         for host in hosts:
             all_ips += hosts[host]
 
+        
         #dns = {}
         #for i in range(len(all_ips)):
         #    dns[i] = all_ips[i] + ":10000"
@@ -278,9 +279,26 @@ class BenchMal:
             bench_parameters = BenchParameters(bench_parameters_dict)
             selected_hosts = self._select_hosts(bench_parameters)
             
-            dns = {}
-            for i in range(len(all_ips)):
-                dns[i] = selected_hosts[i] + ":10000"
+            test={}
+            dns_no_port = {}
+            region_one = list(hosts.keys())[0]
+            i = 0
+            for machine in hosts[region_one]:
+                test[i] = machine + ':10000'
+                dns_no_port[i] = machine
+                i += 1
+            honests = i
+            for region in hosts:
+                if region != region_one:
+                    for j in range(len(hosts[region])):
+                        test[honests+j*(len(hosts[region])+1)] = hosts[region][j]+':10000'
+                        dns_no_port[honests+j*(len(hosts[region])+1)] = hosts[region][j]
+                    honests += 1
+
+            dns = test
+            #dns = {}
+            #for i in range(len(all_ips)):
+            #    dns[i] = selected_hosts[i] + ":10000"
             print(dns)
             with open("./benchmark/.dns.json","w") as f:
                 dump(dns, f, indent=4, sort_keys=True)
@@ -313,6 +331,10 @@ class BenchMal:
             e = FabricError(e) if isinstance(e, GroupException) else e
             raise BenchError('Failed to update nodes', e)
 
+        #dns_keys = list(dns.keys())
+        print(dns_no_port)
+        for i in range(len(dns)):
+            selected_hosts[i] = dns_no_port[i]
         # Run benchmarks.
         for n in bench_parameters.nodes:
             for r in bench_parameters.rate:
