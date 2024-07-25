@@ -24,13 +24,13 @@ impl RRLeaderElector {
     pub fn get_leader(&self, round: Round, firewall: Vec<SocketAddr>, dns: HashMap<SocketAddr, SocketAddr>) -> PublicKey {
         let mut keys: Vec<_> = self.committee.authorities.keys().cloned().collect();
         let values: Vec<_> = self.committee.authorities.values().cloned().collect();
-        let mut addresses: Vec<_> = values.iter().map(|x| x.address).collect();
+        let mut addresses: Vec<_> = values.iter().map(|x| dns[&x.address]).collect();
         addresses.sort();
         let mut keys_order = Vec::new();
 
         for address in addresses.iter(){
             for key in keys.iter() {
-                if self.committee.address(&key).unwrap() == *address {
+                if dns[&self.committee.address(&key).unwrap()] == *address {
                     keys_order.push(key.clone());
                 }
             }
@@ -48,10 +48,10 @@ impl RRLeaderElector {
         //        counter += 1;
         //    }
         //}
-        let mut virtual_address;
+        //let mut virtual_address;
         for _value in addresses.iter() {
-            virtual_address = dns[&_value];
-            if firewall.contains(&virtual_address){
+            //virtual_address = dns[&_value];
+            if firewall.contains(&_value){
                 indices.push(false);
             }else{
                 indices.push(true);
